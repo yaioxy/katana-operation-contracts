@@ -12,3 +12,6 @@
 [submodule "lib/katana-v3-contracts"]
 	path = lib/katana-v3-contracts
 	url = https://github.com/ronin-chain/katana-v3-contracts
+[submodule "lib/permit2"]
+	path = lib/permit2
+	url = https://github.com/Uniswap/permit2

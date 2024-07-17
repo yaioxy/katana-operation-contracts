@@ -9,3 +9,6 @@
 [submodule "lib/solmate"]
 	path = lib/solmate
 	url = https://github.com/transmissions11/solmate
+[submodule "lib/katana-v3-contracts"]
+	path = lib/katana-v3-contracts
+	url = https://github.com/ronin-chain/katana-v3-contracts

@@ -7,7 +7,7 @@ import { RewardsCollector } from "./base/RewardsCollector.sol";
 import { RouterParameters } from "./base/RouterImmutables.sol";
 import { PaymentsImmutables, PaymentsParameters } from "./modules/PaymentsImmutables.sol";
 import { NFTImmutables, NFTParameters } from "./modules/NFTImmutables.sol";
-import { UniswapImmutables, UniswapParameters } from "./modules/uniswap/UniswapImmutables.sol";
+import { KatanaImmutables, KatanaParameters } from "./modules/katana/KatanaImmutables.sol";
 import { Commands } from "./libraries/Commands.sol";
 import { IUniversalRouter } from "./interfaces/IUniversalRouter.sol";
 
@@ -18,8 +18,8 @@ contract UniversalRouter is IUniversalRouter, Dispatcher, RewardsCollector {
   }
 
   constructor(RouterParameters memory params)
-    UniswapImmutables(
-      UniswapParameters(params.v2Factory, params.v3Factory, params.pairInitCodeHash, params.poolInitCodeHash)
+    KatanaImmutables(
+      KatanaParameters(params.v2Factory, params.v3Factory, params.pairInitCodeHash, params.poolInitCodeHash)
     )
     PaymentsImmutables(PaymentsParameters(params.permit2, params.weth9, params.openseaConduit, params.sudoswap))
     NFTImmutables(

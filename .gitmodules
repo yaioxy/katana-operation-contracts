@@ -1,0 +1,5 @@
+[submodule "lib/foundry-deployment-kit"]
+	path = lib/foundry-deployment-kit
+	url = https://github.com/axieinfinity/foundry-deployment-kit
+	branch = v0.2.0
+	

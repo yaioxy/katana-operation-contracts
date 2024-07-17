@@ -1,0 +1,5 @@
+@fdk/=lib/foundry-deployment-kit/script/
+@contract-libs/=lib/foundry-deployment-kit/lib/contract-libs/src/
+forge-std/=lib/foundry-deployment-kit/lib/forge-std/src/
+@solady/=lib/foundry-deployment-kit/lib/solady/src/
+@openzeppelin/contracts/=lib/foundry-deployment-kit/lib/openzeppelin-contracts/contracts/

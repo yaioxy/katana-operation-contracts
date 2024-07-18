@@ -25,8 +25,16 @@ jobs:
     name: Foundry project
     runs-on: [self-hosted, gke]
     steps:
+      - id: 'gh-app'
+        name: 'Get Token'
+        uses: 'tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a' #v1.7.0
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+          
       - uses: actions/checkout@v3
         with:
+          token: ${{ steps.gh-app.outputs.token }}
           submodules: recursive
 
       - name: Install Foundry

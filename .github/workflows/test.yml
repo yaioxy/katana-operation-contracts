@@ -24,15 +24,11 @@ jobs:
 
     name: Foundry project
     runs-on: [self-hosted, gke]
-
-    permissions:
-      contents: read
     
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1

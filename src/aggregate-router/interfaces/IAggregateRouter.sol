@@ -1,11 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.17;
 
-import { IERC721Receiver } from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
-import { IERC1155Receiver } from "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
-import { IRewardsCollector } from "./IRewardsCollector.sol";
-
-interface IAggregateRouter is IRewardsCollector, IERC721Receiver, IERC1155Receiver {
+interface IAggregateRouter {
   /// @notice Thrown when a required command has failed
   error ExecutionFailed(uint256 commandIndex, bytes message);
 

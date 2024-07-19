@@ -5,7 +5,7 @@ import { IERC721Receiver } from "@openzeppelin/contracts/token/ERC721/IERC721Rec
 import { IERC1155Receiver } from "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol";
 import { IRewardsCollector } from "./IRewardsCollector.sol";
 
-interface IUniversalRouter is IRewardsCollector, IERC721Receiver, IERC1155Receiver {
+interface IAggregateRouter is IRewardsCollector, IERC721Receiver, IERC1155Receiver {
   /// @notice Thrown when a required command has failed
   error ExecutionFailed(uint256 commandIndex, bytes message);
 

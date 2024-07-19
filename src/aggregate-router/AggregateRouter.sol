@@ -9,9 +9,9 @@ import { PaymentsImmutables, PaymentsParameters } from "./modules/PaymentsImmuta
 import { NFTImmutables, NFTParameters } from "./modules/NFTImmutables.sol";
 import { KatanaImmutables, KatanaParameters } from "./modules/katana/KatanaImmutables.sol";
 import { Commands } from "./libraries/Commands.sol";
-import { IUniversalRouter } from "./interfaces/IUniversalRouter.sol";
+import { IAggregateRouter } from "./interfaces/IAggregateRouter.sol";
 
-contract UniversalRouter is IUniversalRouter, Dispatcher, RewardsCollector {
+contract AggregateRouter is IAggregateRouter, Dispatcher, RewardsCollector {
   modifier checkDeadline(uint256 deadline) {
     if (block.timestamp > deadline) revert TransactionDeadlinePassed();
     _;
@@ -41,7 +41,7 @@ contract UniversalRouter is IUniversalRouter, Dispatcher, RewardsCollector {
     )
   { }
 
-  /// @inheritdoc IUniversalRouter
+  /// @inheritdoc IAggregateRouter
   function execute(bytes calldata commands, bytes[] calldata inputs, uint256 deadline)
     external
     payable

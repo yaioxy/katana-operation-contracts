@@ -17,7 +17,9 @@ contract AggregateRouter is IAggregateRouter, Dispatcher {
 
   constructor(RouterParameters memory params)
     KatanaImmutables(
-      KatanaParameters(params.v2Factory, params.v3Factory, params.pairInitCodeHash, params.poolInitCodeHash)
+      KatanaParameters(
+        params.governance, params.v2Factory, params.v3Factory, params.pairInitCodeHash, params.poolInitCodeHash
+      )
     )
     PaymentsImmutables(PaymentsParameters(params.permit2, params.weth9))
   { }

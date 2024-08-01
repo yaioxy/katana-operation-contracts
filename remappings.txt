@@ -1,8 +1,5 @@
-@fdk/=lib/foundry-deployment-kit/script/
-@contract-libs/=lib/foundry-deployment-kit/lib/contract-libs/src/
-forge-std/=lib/foundry-deployment-kit/lib/forge-std/src/
-@solady/=lib/foundry-deployment-kit/lib/solady/src/
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/
 solmate/=lib/solmate/
 permit2/=lib/permit2/
 @katana/v3-contracts/=lib/katana-v3-contracts/src/

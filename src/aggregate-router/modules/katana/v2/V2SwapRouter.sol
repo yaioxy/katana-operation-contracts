@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.17;
 
-import { IKatanaV2Pair } from "../../../interfaces/external/IKatanaV2Pair.sol";
+import { IKatanaV2Pair } from "@katana/v3-contracts/periphery/interfaces/IKatanaV2Pair.sol";
 import { KatanaV2Library } from "./KatanaV2Library.sol";
 import { KatanaImmutables } from "../KatanaImmutables.sol";
 import { Payments } from "../../Payments.sol";

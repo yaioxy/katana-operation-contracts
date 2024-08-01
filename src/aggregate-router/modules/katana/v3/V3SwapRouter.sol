@@ -147,7 +147,7 @@ abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3Sw
     returns (int256 amount0Delta, int256 amount1Delta, bool zeroForOne)
   {
     (address tokenIn, uint24 fee, address tokenOut) = path.decodeFirstPool();
-    
+
     address[] memory tokens = new address[](2);
     tokens[0] = tokenIn;
     tokens[1] = tokenOut;

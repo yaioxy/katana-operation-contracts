@@ -3,3 +3,4 @@
 solmate/=lib/solmate/
 permit2/=lib/permit2/
 @katana/v3-contracts/=lib/katana-v3-contracts/src/
+@katana/operation-contracts/=src/

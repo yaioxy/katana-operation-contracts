@@ -63,7 +63,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
     }
   }
 
-  function initializeV2(address router) external reinitializer(2) {
+  function initializeV2(address router) external reinitializer(3) {
     _router = router;
   }
 

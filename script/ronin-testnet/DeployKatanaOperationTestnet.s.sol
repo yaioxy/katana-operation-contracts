@@ -13,7 +13,7 @@ contract DeployKatanaOperationTestnet is UpgradeKatanaGovernance {
       v2Factory: 0x86587380C4c815Ba0066c90aDB2B45CC9C15E72c,
       v3Factory: 0x249F235bB9Fed56131B7E44Fe453E71b422B0A42,
       pairInitCodeHash: 0x1cc97ead4d6949b7a6ecb28652b21159b9fd5608ae51a1960224099caab07dca,
-      poolInitCodeHash: 0x97ee45181a4d14c00cdcc956fefebfa98f8c8744e3fe6d83e1861dc77ff40a99
+      poolInitCodeHash: 0x8055b6834943f8f684de0aebfd2f61ab734b814b3b15f7e76661ed7012d0ec11
     });
 
     proxyAdmin = 0x505d91E8fd2091794b45b27f86C045529fa92CD7;

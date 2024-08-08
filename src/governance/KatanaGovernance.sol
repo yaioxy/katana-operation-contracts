@@ -36,8 +36,8 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   address private _router;
 
   /// @dev Only use this modifier for boolean-returned methods
-  modifier skipIfAllowedAllOrOwner(address account) {
-    _skipIfAllowedAllOrOwner(account);
+  modifier skipIfRouterOrAllowedAllOrOwner(address account) {
+    _skipIfRouterOrAllowedAllOrOwner(account);
     _;
   }
 
@@ -200,7 +200,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   function isAuthorized(address token, address account)
     external
     view
-    skipIfAllowedAllOrOwner(account)
+    skipIfRouterOrAllowedAllOrOwner(account)
     returns (bool authorized)
   {
     authorized = _isAuthorized(_permission[token], account);
@@ -212,7 +212,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   function isAuthorized(address[] calldata tokens, address account)
     external
     view
-    skipIfAllowedAllOrOwner(account)
+    skipIfRouterOrAllowedAllOrOwner(account)
     returns (bool authorized)
   {
     uint256 length = tokens.length;
@@ -342,11 +342,11 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
    * @dev Skips the function if the caller is allowed all or the owner.
    * WARNING: This function can return and exit current context and skip the function.
    */
-  function _skipIfAllowedAllOrOwner(address account) internal view {
-    if (allowedAll() || account == owner()) {
+  function _skipIfRouterOrAllowedAllOrOwner(address account) internal view {
+    if (account == _router || allowedAll() || account == owner()) {
       assembly ("memory-safe") {
         mstore(0x0, true)
-        return(0x0, returndatasize())
+        return(0x0, 32)
       }
     }
   }

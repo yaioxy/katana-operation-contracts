@@ -8,6 +8,7 @@ import { DeployAggregateRouter } from "./DeployAggregateRouter.s.sol";
 
 abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
   address public nonfungiblePositionManager;
+  address public v3Migrator;
   address public katanaGovernanceProxy;
   address public proxyAdmin;
 
@@ -17,6 +18,7 @@ abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
     require(nonfungiblePositionManager != address(0));
     require(katanaGovernanceProxy != address(0));
     require(proxyAdmin != address(0));
+    require(v3Migrator != address(0));
 
     super.setUp();
   }
@@ -25,7 +27,7 @@ abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
     super.run();
 
     vm.broadcast();
-    katanaGovernanceLogic = address(new KatanaGovernance(nonfungiblePositionManager));
+    katanaGovernanceLogic = address(new KatanaGovernance(nonfungiblePositionManager, params.v3Factory, v3Migrator));
     console.log("Katana Governance (logic) deployed:", katanaGovernanceLogic);
 
     console.log("Please upgrade to Katana Governance (logic) using ProxyAdmin", proxyAdmin);

@@ -3,6 +3,7 @@ pragma solidity ^0.8.23;
 
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import { EnumerableSet } from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+import { Address } from "@openzeppelin/contracts/utils/Address.sol";
 import { IKatanaV2Factory } from "./interfaces/IKatanaV2Factory.sol";
 import { IKatanaV2Pair } from "@katana/v3-contracts/periphery/interfaces/IKatanaV2Pair.sol";
 import { IKatanaGovernance } from "@katana/v3-contracts/external/interfaces/IKatanaGovernance.sol";
@@ -11,7 +12,13 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   using EnumerableSet for EnumerableSet.AddressSet;
 
   /// @inheritdoc IKatanaGovernance
+  address public immutable getV3Factory;
+  /// @inheritdoc IKatanaGovernance
   address public immutable getPositionManager;
+
+  /// @dev The address of the V3 migrator contract.
+  /// This is used to skip authorization checks for the migrator.
+  address public immutable v3Migrator;
 
   /// @dev Revert error when the length of the array is invalid.
   error InvalidLength();
@@ -37,12 +44,14 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
 
   /// @dev Only use this modifier for boolean-returned methods
   modifier skipIfRouterOrAllowedAllOrOwner(address account) {
-    _skipIfRouterOrAllowedAllOrOwner(account);
+    _skipIfRouterOrMigratorOrAllowedAllOrOwner(account);
     _;
   }
 
-  constructor(address nonfungiblePositionManager) {
+  constructor(address nonfungiblePositionManager, address v3Factory, address migrator) {
+    getV3Factory = v3Factory;
     getPositionManager = nonfungiblePositionManager;
+    v3Migrator = migrator;
     _disableInitializers();
   }
 
@@ -63,13 +72,23 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
     }
   }
 
-  function initializeV2(address router) external reinitializer(3) {
+  function initializeV2(address router) external reinitializer(2) {
     _router = router;
   }
 
   /// @inheritdoc IKatanaGovernance
   function setRouter(address router) external onlyOwner {
     _router = router;
+  }
+
+  /// @inheritdoc IKatanaGovernance
+  function v3FactoryMulticall(bytes[] calldata data) external returns (bytes[] memory results) {
+    results = new bytes[](data.length);
+    address factory = getV3Factory;
+
+    for (uint256 i; i < data.length; ++i) {
+      results[i] = Address.functionCall(factory, data[i]);
+    }
   }
 
   /**
@@ -342,8 +361,8 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
    * @dev Skips the function if the caller is allowed all or the owner.
    * WARNING: This function can return and exit current context and skip the function.
    */
-  function _skipIfRouterOrAllowedAllOrOwner(address account) internal view {
-    if (account == _router || allowedAll() || account == owner()) {
+  function _skipIfRouterOrMigratorOrAllowedAllOrOwner(address account) internal view {
+    if (account == _router || account == v3Migrator || allowedAll() || account == owner()) {
       assembly ("memory-safe") {
         mstore(0x0, true)
         return(0x0, 32)

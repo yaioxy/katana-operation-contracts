@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 
 import { V3Path } from "./V3Path.sol";
 import { BytesLib } from "./BytesLib.sol";
+import { IKatanaGovernance } from "@katana/v3-contracts/external/interfaces/IKatanaGovernance.sol";
 import { SafeCast } from "@katana/v3-contracts/core/libraries/SafeCast.sol";
 import { IKatanaV3Pool } from "@katana/v3-contracts/core/interfaces/IKatanaV3Pool.sol";
 import { IKatanaV3SwapCallback } from "@katana/v3-contracts/core/interfaces/callback/IKatanaV3SwapCallback.sol";
@@ -23,6 +24,7 @@ abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3Sw
   error V3TooMuchRequested();
   error V3InvalidAmountOut();
   error V3InvalidCaller();
+  error V3UnauthorizedSwap();
 
   /// @dev Used as the placeholder value for maxAmountIn, because the computed amount in for an exact output swap
   /// can never actually be this value
@@ -145,6 +147,11 @@ abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3Sw
     returns (int256 amount0Delta, int256 amount1Delta, bool zeroForOne)
   {
     (address tokenIn, uint24 fee, address tokenOut) = path.decodeFirstPool();
+
+    address[] memory tokens = new address[](2);
+    tokens[0] = tokenIn;
+    tokens[1] = tokenOut;
+    if (!IKatanaGovernance(KATANA_GOVERNANCE).isAuthorized(tokens, msg.sender)) revert V3UnauthorizedSwap();
 
     zeroForOne = isExactIn ? tokenIn < tokenOut : tokenOut < tokenIn;
 

@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.17;
 
-import { IKatanaV2Pair } from "../../../interfaces/external/IKatanaV2Pair.sol";
+import { IKatanaV2Pair } from "@katana/v3-contracts/periphery/interfaces/IKatanaV2Pair.sol";
+import { IKatanaGovernance } from "@katana/v3-contracts/external/interfaces/IKatanaGovernance.sol";
 import { KatanaV2Library } from "./KatanaV2Library.sol";
 import { KatanaImmutables } from "../KatanaImmutables.sol";
 import { Payments } from "../../Payments.sol";
@@ -14,8 +15,11 @@ abstract contract V2SwapRouter is KatanaImmutables, Permit2Payments {
   error V2TooLittleReceived();
   error V2TooMuchRequested();
   error V2InvalidPath();
+  error V2UnauthorizedPath();
 
   function _v2Swap(address[] calldata path, address recipient, address pair) private {
+    if (!IKatanaGovernance(KATANA_GOVERNANCE).isAuthorized(path, msg.sender)) revert V2UnauthorizedPath();
+
     unchecked {
       if (path.length < 2) revert V2InvalidPath();
 

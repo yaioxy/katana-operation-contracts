@@ -9,6 +9,7 @@ ffi = true
 
 solc = '0.8.26'
 optimizer_runs = 1_000_000
+via_ir=true
 evm_version = 'istanbul'
 use_literal_content = true
 extra_output = ["devdoc", "userdoc", "storagelayout"]

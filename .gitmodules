@@ -3,3 +3,15 @@
 	url = https://github.com/axieinfinity/foundry-deployment-kit
 	branch = v0.2.0
 	
+[submodule "lib/openzeppelin-contracts"]
+	path = lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "lib/solmate"]
+	path = lib/solmate
+	url = https://github.com/transmissions11/solmate
+[submodule "lib/katana-v3-contracts"]
+	path = lib/katana-v3-contracts
+	url = https://github.com/ronin-chain/katana-v3-contracts
+[submodule "lib/permit2"]
+	path = lib/permit2
+	url = https://github.com/Uniswap/permit2

@@ -3,7 +3,9 @@ pragma solidity ^0.8.23;
 
 import { LibString, TContract } from "@fdk/types/Types.sol";
 
-enum Contract { Counter }
+enum Contract {
+  Counter
+}
 
 using { key, name } for Contract global;
 

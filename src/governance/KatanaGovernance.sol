@@ -82,7 +82,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   }
 
   /// @inheritdoc IKatanaGovernance
-  function v3FactoryMulticall(bytes[] calldata data) external returns (bytes[] memory results) {
+  function v3FactoryMulticall(bytes[] calldata data) external onlyOwner returns (bytes[] memory results) {
     results = new bytes[](data.length);
     address factory = getV3Factory;
 

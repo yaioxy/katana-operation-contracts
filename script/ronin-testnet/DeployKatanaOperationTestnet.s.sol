@@ -7,7 +7,7 @@ import { UpgradeKatanaGovernance } from "../UpgradeKatanaGovernance.s.sol";
 contract DeployKatanaOperationTestnet is UpgradeKatanaGovernance {
   function setUp() public override {
     params = RouterParameters({
-      permit2: 0x000000000022D473030F116dDEE9F6B43aC78BA3,
+      permit2: 0x1Bd5aA9818D94DcABfE02794553e76f7Cceea0cd,
       weth9: 0xA959726154953bAe111746E265E6d754F48570E6,
       governance: 0x247F12836A421CDC5e22B93Bf5A9AAa0f521f986,
       v2Factory: 0x86587380C4c815Ba0066c90aDB2B45CC9C15E72c,

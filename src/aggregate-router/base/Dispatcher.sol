@@ -8,7 +8,7 @@ import { Payments } from "../modules/Payments.sol";
 import { PaymentsImmutables } from "../modules/PaymentsImmutables.sol";
 import { Commands } from "../libraries/Commands.sol";
 import { LockAndMsgSender } from "./LockAndMsgSender.sol";
-import { ERC20 } from "solmate/src/tokens/ERC20.sol";
+import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { IAllowanceTransfer } from "permit2/src/interfaces/IAllowanceTransfer.sol";
 
 /// @title Decodes and Executes Commands

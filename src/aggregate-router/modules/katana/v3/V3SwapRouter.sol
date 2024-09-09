@@ -11,7 +11,7 @@ import { Constants } from "../../../libraries/Constants.sol";
 import { Permit2Payments } from "../../Permit2Payments.sol";
 import { KatanaImmutables } from "../KatanaImmutables.sol";
 import { Constants } from "../../../libraries/Constants.sol";
-import { ERC20 } from "solmate/src/tokens/ERC20.sol";
+import { ERC20 } from "solmate/tokens/ERC20.sol";
 
 /// @title Router for Katana v3 Trades
 abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3SwapCallback {

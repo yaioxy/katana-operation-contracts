@@ -7,7 +7,6 @@ ffi = true
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
 
-solc = '0.8.26'
 optimizer_runs = 1_000_000
 via_ir=true
 evm_version = 'istanbul'
@@ -32,3 +31,9 @@ runs = 256
 
 [invariant]
 runs = 256
+
+[dependencies]
+"@openzeppelin-contracts" = { version = "4.7.0", url = "https://github.com/OpenZeppelin/openzeppelin-contracts/archive/refs/tags/v4.7.0.zip" }
+
+[soldeer]
+remappings_generate = false

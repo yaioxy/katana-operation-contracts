@@ -19,3 +19,8 @@ yarn-error.log
 
 # Soldeer
 dependencies/
+
+# Hardhat
+artifacts/
+typechain/
+cache_hardhat/

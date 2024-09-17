@@ -1,0 +1,8 @@
+src/governance/KatanaGovernance.sol:KatanaGovernance:__gap (storage_slot: 0) (offset: 0) (type: uint256[50]) (numberOfBytes: 1600)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_v2Factory (storage_slot: 50) (offset: 0) (type: contract IKatanaV2Factory) (numberOfBytes: 20)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_permission (storage_slot: 51) (offset: 0) (type: mapping(address => struct IKatanaGovernance.Permission)) (numberOfBytes: 32)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_tokens (storage_slot: 52) (offset: 0) (type: struct EnumerableSet.AddressSet) (numberOfBytes: 64)
+src/governance/KatanaGovernance.sol:KatanaGovernance:isAllowedActor (storage_slot: 54) (offset: 0) (type: mapping(address => bool)) (numberOfBytes: 32)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_v3Factory (storage_slot: 55) (offset: 0) (type: address) (numberOfBytes: 20)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_positionManager (storage_slot: 56) (offset: 0) (type: address) (numberOfBytes: 20)
+src/governance/KatanaGovernance.sol:KatanaGovernance:_router (storage_slot: 57) (offset: 0) (type: address) (numberOfBytes: 20)

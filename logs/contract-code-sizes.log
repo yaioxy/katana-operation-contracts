@@ -1,0 +1,23 @@
+| Contract                    | Size (B) | Margin (B) |
+|-----------------------------|----------|------------|
+| Address                     |       58 |     24,518 |
+| AggregateRouter.0.8.26      |   14,082 |     10,494 |
+| BytesLib.0.8.26             |       58 |     24,518 |
+| Commands.0.8.26             |       58 |     24,518 |
+| Constants.0.8.26            |       58 |     24,518 |
+| ERC1967Proxy                |      145 |     24,431 |
+| ERC1967Utils                |       58 |     24,518 |
+| EnumerableSet               |       58 |     24,518 |
+| KatanaGovernance            |   11,367 |     13,209 |
+| KatanaImmutables.0.8.26     |       58 |     24,518 |
+| KatanaV2Library.0.8.26      |       58 |     24,518 |
+| LockAndMsgSender.0.8.26     |       58 |     24,518 |
+| PaymentsImmutables.0.8.26   |       58 |     24,518 |
+| ProxyAdmin                  |    1,478 |     23,098 |
+| SafeCast.0.8.26             |       58 |     24,518 |
+| SafeCast160.0.8.26          |       58 |     24,518 |
+| SafeTransferLib.0.8.26      |       58 |     24,518 |
+| StorageSlot                 |       58 |     24,518 |
+| TransparentUpgradeableProxy |    1,223 |     23,353 |
+| V3Path.0.8.26               |       58 |     24,518 |
+

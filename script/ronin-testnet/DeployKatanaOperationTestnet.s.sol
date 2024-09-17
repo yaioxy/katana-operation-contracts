@@ -20,6 +20,7 @@ contract DeployKatanaOperationTestnet is UpgradeKatanaGovernance {
 
     nonfungiblePositionManager = 0xdCad4D3a77F0E971C2372Be922dF02Cff1e81f5B;
     v3Migrator = 0x3b1C5F1F7C6421829044fc8afA59953f095F6ed3;
+    legacyPermissionedRouter = 0x3BD36748D17e322cFB63417B059Bcc1059012D83;
     katanaGovernanceProxy = 0x247F12836A421CDC5e22B93Bf5A9AAa0f521f986;
 
     vm.rememberKey(vm.envUint("TESTNET_PK"));

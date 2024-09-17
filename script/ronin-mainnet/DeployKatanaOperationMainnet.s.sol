@@ -17,8 +17,9 @@ contract DeployKatanaOperationMainnet is UpgradeKatanaGovernance {
     });
 
     proxyAdmin = 0xA3e7d085E65CB0B916f6717da876b7bE5cC92f03; // Proxy Admin
-
     nonfungiblePositionManager = address(0); // TODO: To be deployed
+    v3Migrator = address(0); // TODO: To be deployed
+    legacyPermissionedRouter = 0xC05AFC8c9353c1dd5f872EcCFaCD60fd5A2a9aC7;
     katanaGovernanceProxy = 0x2C1726346d83cBF848bD3C2B208ec70d32a9E44a;
 
     vm.rememberKey(vm.envUint("MAINNET_PK"));

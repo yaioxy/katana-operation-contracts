@@ -103,7 +103,9 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
     _v3Factory.toggleFlashLoanPermission();
   }
 
-  /// @inheritdoc IKatanaGovernance
+  /**
+   * @inheritdoc IKatanaGovernance
+   */
   function enableFeeAmount(uint24 fee, int24 tickSpacing, uint8 feeProtocolNum, uint8 feeProtocolDen)
     external
     onlyOwner
@@ -168,6 +170,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
    */
   function setTreasury(address newTreasury) external onlyOwner {
     _v2Factory.setTreasury(newTreasury);
+    _v3Factory.setTreasury(newTreasury);
   }
 
   /**

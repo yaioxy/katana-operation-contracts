@@ -9,6 +9,7 @@ import { DeployAggregateRouter } from "./DeployAggregateRouter.s.sol";
 abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
   address public nonfungiblePositionManager;
   address public v3Migrator;
+  address public legacyPermissionedRouter;
   address public katanaGovernanceProxy;
   address public proxyAdmin;
 
@@ -16,9 +17,10 @@ abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
 
   function setUp() public virtual override {
     require(nonfungiblePositionManager != address(0));
+    require(v3Migrator != address(0));
+    require(legacyPermissionedRouter != address(0));
     require(katanaGovernanceProxy != address(0));
     require(proxyAdmin != address(0));
-    require(v3Migrator != address(0));
 
     super.setUp();
   }
@@ -27,11 +29,19 @@ abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
     super.run();
 
     vm.broadcast();
-    katanaGovernanceLogic = address(new KatanaGovernance(nonfungiblePositionManager, params.v3Factory, v3Migrator));
+    katanaGovernanceLogic = address(new KatanaGovernance());
     console.log("Katana Governance (logic) deployed:", katanaGovernanceLogic);
 
     console.log("Please upgrade to Katana Governance (logic) using ProxyAdmin", proxyAdmin);
-    console.log("Data:", vm.toString(abi.encodeCall(KatanaGovernance.initializeV2, (router))));
+    console.log(
+      "Data:",
+      vm.toString(
+        abi.encodeCall(
+          KatanaGovernance.initializeV2,
+          (params.v3Factory, nonfungiblePositionManager, v3Migrator, legacyPermissionedRouter, router)
+        )
+      )
+    );
   }
 
   function logParams() internal view override {

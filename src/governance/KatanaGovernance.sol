@@ -4,6 +4,7 @@ pragma solidity ^0.8.23;
 import { OwnableUpgradeable } from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import { EnumerableSet } from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+import { IKatanaV3Factory } from "@katana/v3-contracts/core/interfaces/IKatanaV3Factory.sol";
 import { IKatanaV2Factory } from "./interfaces/IKatanaV2Factory.sol";
 import { IKatanaV2Pair } from "@katana/v3-contracts/periphery/interfaces/IKatanaV2Pair.sol";
 import { IKatanaGovernance } from "@katana/v3-contracts/external/interfaces/IKatanaGovernance.sol";
@@ -36,7 +37,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   mapping(address actor => bool) public isAllowedActor;
 
   /// @dev The v3 factory address.
-  address private _v3Factory;
+  IKatanaV3Factory private _v3Factory;
   /// @dev The position manager address.
   address private _positionManager;
 
@@ -68,36 +69,46 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
     address v3Factory,
     address positionManager,
     address v3Migrator,
-    address legacyRouter,
-    address router
+    address legacyPermissionedRouter,
+    address aggregateRouter
   ) external reinitializer(2) {
-    _v3Factory = v3Factory;
+    _v3Factory = IKatanaV3Factory(v3Factory);
     _positionManager = positionManager;
 
-    _setRouter(router);
+    _setRouter(aggregateRouter);
 
     _setAllowedActor(v3Migrator, true);
-    _setAllowedActor(legacyRouter, true);
-    _setAllowedActor(router, true);
+    _setAllowedActor(legacyPermissionedRouter, true);
+    _setAllowedActor(aggregateRouter, true);
   }
 
-  /// @inheritdoc IKatanaGovernance
+  /**
+   * @inheritdoc IKatanaGovernance
+   */
   function setRouter(address router) external onlyOwner {
     _setRouter(router);
   }
 
+  /**
+   * @inheritdoc IKatanaGovernance
+   */
   function setAllowedActor(address actor, bool allowed) external onlyOwner {
     _setAllowedActor(actor, allowed);
   }
 
+  /**
+   * @inheritdoc IKatanaGovernance
+   */
+  function toggleFlashLoanPermission() external onlyOwner {
+    _v3Factory.toggleFlashLoanPermission();
+  }
+
   /// @inheritdoc IKatanaGovernance
-  function v3FactoryMulticall(bytes[] calldata data) external onlyOwner returns (bytes[] memory results) {
-    results = new bytes[](data.length);
-    address factory = _v3Factory;
-    uint256 length = data.length;
-    for (uint256 i; i < length; ++i) {
-      results[i] = Address.functionCall(factory, data[i]);
-    }
+  function enableFeeAmount(uint24 fee, int24 tickSpacing, uint8 feeProtocolNum, uint8 feeProtocolDen)
+    external
+    onlyOwner
+  {
+    _v3Factory.enableFeeAmount(fee, tickSpacing, feeProtocolNum, feeProtocolDen);
   }
 
   /**
@@ -211,7 +222,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
   /**
    * @inheritdoc IKatanaGovernance
    */
-  function getFactory() external view returns (address) {
+  function getV2Factory() external view returns (address) {
     return address(_v2Factory);
   }
 
@@ -219,7 +230,7 @@ contract KatanaGovernance is OwnableUpgradeable, IKatanaV2Factory, IKatanaGovern
    * @inheritdoc IKatanaGovernance
    */
   function getV3Factory() external view override returns (address) {
-    return _v3Factory;
+    return address(_v3Factory);
   }
 
   /**

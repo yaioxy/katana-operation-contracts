@@ -1,14 +1,14 @@
 | Contract                    | Size (B) | Margin (B) |
 |-----------------------------|----------|------------|
 | Address                     |       58 |     24,518 |
-| AggregateRouter.0.8.26      |   14,082 |     10,494 |
+| AggregateRouter             |   14,082 |     10,494 |
 | BytesLib.0.8.26             |       58 |     24,518 |
 | Commands.0.8.26             |       58 |     24,518 |
 | Constants.0.8.26            |       58 |     24,518 |
 | ERC1967Proxy                |      145 |     24,431 |
 | ERC1967Utils                |       58 |     24,518 |
 | EnumerableSet               |       58 |     24,518 |
-| KatanaGovernance            |   11,367 |     13,209 |
+| KatanaGovernance            |   10,887 |     13,689 |
 | KatanaImmutables.0.8.26     |       58 |     24,518 |
 | KatanaV2Library.0.8.26      |       58 |     24,518 |
 | LockAndMsgSender.0.8.26     |       58 |     24,518 |

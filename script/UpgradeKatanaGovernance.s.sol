@@ -46,5 +46,9 @@ abstract contract UpgradeKatanaGovernance is DeployAggregateRouter {
 
   function logParams() internal view override {
     console.log("nonfungiblePositionManager:", nonfungiblePositionManager);
+    console.log("v3Migrator:", v3Migrator);
+    console.log("legacyPermissionedRouter:", legacyPermissionedRouter);
+    console.log("katanaGovernanceProxy:", katanaGovernanceProxy);
+    console.log("proxyAdmin:", proxyAdmin);
   }
 }

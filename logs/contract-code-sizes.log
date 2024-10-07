@@ -1,7 +1,7 @@
 | Contract                    | Size (B) | Margin (B) |
 |-----------------------------|----------|------------|
 | Address                     |       58 |     24,518 |
-| AggregateRouter             |   14,082 |     10,494 |
+| AggregateRouter             |   13,554 |     11,022 |
 | BytesLib                    |       58 |     24,518 |
 | Commands                    |       58 |     24,518 |
 | Constants                   |       58 |     24,518 |

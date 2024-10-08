@@ -48,6 +48,7 @@ abstract contract Dispatcher is Payments, V2SwapRouter, V3SwapRouter, LockAndMsg
         bytes calldata path = inputs.toBytes(3);
         address payer = payerIsUser ? lockedBy : address(this);
         v3SwapExactInput(map(recipient), amountIn, amountOutMin, path, payer);
+        checkAuthorizedV3Path(path); // place the check here to avoid stack too deep error
       } else if (command == Commands.V3_SWAP_EXACT_OUT) {
         // equivalent: abi.decode(inputs, (address, uint256, uint256, bytes, bool))
         address recipient;
@@ -64,6 +65,7 @@ abstract contract Dispatcher is Payments, V2SwapRouter, V3SwapRouter, LockAndMsg
         bytes calldata path = inputs.toBytes(3);
         address payer = payerIsUser ? lockedBy : address(this);
         v3SwapExactOutput(map(recipient), amountOut, amountInMax, path, payer);
+        checkAuthorizedV3Path(path);
       } else if (command == Commands.PERMIT2_TRANSFER_FROM) {
         // equivalent: abi.decode(inputs, (address, address, uint160))
         address token;

@@ -140,6 +140,16 @@ abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3Sw
     maxAmountInCached = DEFAULT_MAX_AMOUNT_IN;
   }
 
+  function checkAuthorizedV3Path(bytes calldata path) internal view {
+    uint256 length = path.length / Constants.NEXT_V3_POOL_OFFSET + 1;
+    address[] memory tokens = new address[](length);
+    for (uint256 i; i < length; ++i) {
+      tokens[i] = path.decodeFirstToken();
+      if (i + 1 < length) path = path.skipToken();
+    }
+    if (!IKatanaGovernance(KATANA_GOVERNANCE).isAuthorized(tokens, msg.sender)) revert V3UnauthorizedSwap();
+  }
+
   /// @dev Performs a single swap for both exactIn and exactOut
   /// For exactIn, `amount` is `amountIn`. For exactOut, `amount` is `-amountOut`
   function _swap(int256 amount, address recipient, bytes calldata path, address payer, bool isExactIn)
@@ -147,11 +157,6 @@ abstract contract V3SwapRouter is KatanaImmutables, Permit2Payments, IKatanaV3Sw
     returns (int256 amount0Delta, int256 amount1Delta, bool zeroForOne)
   {
     (address tokenIn, uint24 fee, address tokenOut) = path.decodeFirstPool();
-
-    address[] memory tokens = new address[](2);
-    tokens[0] = tokenIn;
-    tokens[1] = tokenOut;
-    if (!IKatanaGovernance(KATANA_GOVERNANCE).isAuthorized(tokens, msg.sender)) revert V3UnauthorizedSwap();
 
     zeroForOne = isExactIn ? tokenIn < tokenOut : tokenOut < tokenIn;
 
